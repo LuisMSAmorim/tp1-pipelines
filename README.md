@@ -19,3 +19,5 @@ Para executar a aplicação localmente, após configurar o ambiente Java e Maven
 2.  Após a compilação bem-sucedida, um arquivo `.jar` será gerado (normalmente em `target/DevCalc-1.0-SNAPSHOT.jar`). Este artefato conterá a aplicação pronta para ser executada (assim que as funcionalidades da API forem implementadas).
 
 O projeto está em desenvolvimento e novas funcionalidades serão adicionadas progressivamente. 
+
+(alteração readme)
