@@ -21,3 +21,11 @@ Para executar a aplicação localmente, após configurar o ambiente Java e Maven
 O projeto está em desenvolvimento e novas funcionalidades serão adicionadas progressivamente. 
 
 (alteração readme)
+
+## Debugging de Workflows
+
+Para exercitar a depuração de workflows, introduzi uma falha de propósito no pipeline de CI/CD. A falha foi causada pela alteração do comando mvn clean install -DskipTests para mvn clen install -DskipTests no arquivo .github/workflows/ci.yml.
+
+A identificação do problema foi feita através da aba Actions no GitHub. Ao navegar para o flow que falhou, os logs do job build_project mostraram um erro indicando que o comando clen não foi encontrado.
+
+A correção foi simples, bastou reverter a alteração no arquivo .github/workflows/ci.yml, corrigindo o erro de digitação no comando do Maven. Após o commit e push da correção, o pipeline voltou a executar com sucesso.
