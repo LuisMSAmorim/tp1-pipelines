@@ -3,53 +3,89 @@ package com.devcalc;
 import io.javalin.Javalin;
 import io.javalin.http.BadRequestResponse;
 
-public class App {
+/**
+ * Classe principal da aplicação que configura e inicia o servidor web.
+ */
+public final class App {
 
-    private static CalculatorService calculatorService = new CalculatorService();
+    /** Porta padrão do servidor. */
+    private static final int SERVER_PORT = 7070;
+    
+    /** Código de status HTTP para requisição inválida. */
+    private static final int BAD_REQUEST = 400;
 
-    public static void main(String[] args) {
+    /** Serviço de calculadora. */
+    private static final CalculatorService CALCULATOR_SERVICE = new CalculatorService();
+
+    private App() {
+        // Construtor privado para evitar instanciação
+    }
+
+    /**
+     * Método principal que inicia a aplicação.
+     *
+     * @param args argumentos da linha de comando (não utilizados)
+     */
+    public static void main(final String[] args) {
         Javalin app = Javalin.create()
-            .start(7070);
+            .start(SERVER_PORT);
 
         app.get("/add", ctx -> {
             try {
-                double a = ctx.queryParamAsClass("a", Double.class).getOrThrow(e -> new BadRequestResponse("Query parameter 'a' is missing or invalid"));
-                double b = ctx.queryParamAsClass("b", Double.class).getOrThrow(e -> new BadRequestResponse("Query parameter 'b' is missing or invalid"));
-                ctx.json(calculatorService.add(a, b));
+                double a = ctx.queryParamAsClass("a", Double.class)
+                    .getOrThrow(e -> new BadRequestResponse(
+                        "Query parameter 'a' is missing or invalid"));
+                double b = ctx.queryParamAsClass("b", Double.class)
+                    .getOrThrow(e -> new BadRequestResponse(
+                        "Query parameter 'b' is missing or invalid"));
+                ctx.json(CALCULATOR_SERVICE.add(a, b));
             } catch (BadRequestResponse e) {
-                ctx.status(400).json(e.getDetails());
+                ctx.status(BAD_REQUEST).json(e.getDetails());
             }
         });
 
         app.get("/subtract", ctx -> {
             try {
-                double a = ctx.queryParamAsClass("a", Double.class).getOrThrow(e -> new BadRequestResponse("Query parameter 'a' is missing or invalid"));
-                double b = ctx.queryParamAsClass("b", Double.class).getOrThrow(e -> new BadRequestResponse("Query parameter 'b' is missing or invalid"));
-                ctx.json(calculatorService.subtract(a, b));
+                double a = ctx.queryParamAsClass("a", Double.class)
+                    .getOrThrow(e -> new BadRequestResponse(
+                        "Query parameter 'a' is missing or invalid"));
+                double b = ctx.queryParamAsClass("b", Double.class)
+                    .getOrThrow(e -> new BadRequestResponse(
+                        "Query parameter 'b' is missing or invalid"));
+                ctx.json(CALCULATOR_SERVICE.subtract(a, b));
             } catch (BadRequestResponse e) {
-                ctx.status(400).json(e.getDetails());
+                ctx.status(BAD_REQUEST).json(e.getDetails());
             }
         });
 
         app.get("/multiply", ctx -> {
             try {
-                double a = ctx.queryParamAsClass("a", Double.class).getOrThrow(e -> new BadRequestResponse("Query parameter 'a' is missing or invalid"));
-                double b = ctx.queryParamAsClass("b", Double.class).getOrThrow(e -> new BadRequestResponse("Query parameter 'b' is missing or invalid"));
-                ctx.json(calculatorService.multiply(a, b));
+                double a = ctx.queryParamAsClass("a", Double.class)
+                    .getOrThrow(e -> new BadRequestResponse(
+                        "Query parameter 'a' is missing or invalid"));
+                double b = ctx.queryParamAsClass("b", Double.class)
+                    .getOrThrow(e -> new BadRequestResponse(
+                        "Query parameter 'b' is missing or invalid"));
+                ctx.json(CALCULATOR_SERVICE.multiply(a, b));
             } catch (BadRequestResponse e) {
-                ctx.status(400).json(e.getDetails());
+                ctx.status(BAD_REQUEST).json(e.getDetails());
             }
         });
 
         app.get("/divide", ctx -> {
             try {
-                double a = ctx.queryParamAsClass("a", Double.class).getOrThrow(e -> new BadRequestResponse("Query parameter 'a' is missing or invalid"));
-                double b = ctx.queryParamAsClass("b", Double.class).getOrThrow(e -> new BadRequestResponse("Query parameter 'b' is missing or invalid"));
-                ctx.json(calculatorService.divide(a, b));
+                double a = ctx.queryParamAsClass("a", Double.class)
+                    .getOrThrow(e -> new BadRequestResponse(
+                        "Query parameter 'a' is missing or invalid"));
+                double b = ctx.queryParamAsClass("b", Double.class)
+                    .getOrThrow(e -> new BadRequestResponse(
+                        "Query parameter 'b' is missing or invalid"));
+                ctx.json(CALCULATOR_SERVICE.divide(a, b));
             } catch (IllegalArgumentException e) {
-                ctx.status(400).json(java.util.Collections.singletonMap("error", e.getMessage()));
+                ctx.status(BAD_REQUEST)
+                    .json(java.util.Collections.singletonMap("error", e.getMessage()));
             } catch (BadRequestResponse e) {
-                ctx.status(400).json(e.getDetails());
+                ctx.status(BAD_REQUEST).json(e.getDetails());
             }
         });
     }
