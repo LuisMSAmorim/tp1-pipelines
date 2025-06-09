@@ -48,4 +48,4 @@ public class CalculatorServiceTest {
         });
         assertEquals("Cannot divide by zero", exception.getMessage(), "Exception message should match");
     }
-} 
+}
