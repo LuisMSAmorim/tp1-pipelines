@@ -54,19 +54,6 @@ jobs:
           mvn test
           mvn jacoco:report
 
-  generate_badges:
-    needs: run_tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Generate Badges
-        uses: gaelgirodon/ci-badges-action@v1
-        with:
-          gist-id: ${{ secrets.BADGES_GIST_ID }}
-          token: ${{ secrets.GIST_TOKEN }}
-
   package_application:
     runs-on: ubuntu-latest
     needs: run_tests
