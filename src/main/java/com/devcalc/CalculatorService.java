@@ -2,7 +2,8 @@ package com.devcalc;
 
 /**
  * Serviço que fornece operações matemáticas básicas.
- * Esta classe é final para garantir que não seja estendida, já que não foi projetada para extensão.
+ * Esta classe é final para garantir que não seja estendida, já que não foi
+ * projetada para extensão.
  */
 public final class CalculatorService {
 
