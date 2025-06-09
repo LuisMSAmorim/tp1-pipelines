@@ -1,5 +1,7 @@
 # DevCalc API
 
+[![Status do CI](https://github.com/luisMSAmorim/DevCalc/actions/workflows/ci.yml/badge.svg)](https://github.com/luisMSAmorim/DevCalc/actions/workflows/ci.yml)
+
 ## Visão Geral
 
 O DevCalc é uma API REST desenvolvida em Java que fornece operações matemáticas básicas. Este projeto serve como um ambiente de aprendizado e demonstração para a implementação de pipelines de CI/CD utilizando GitHub Actions. O objetivo principal é aplicar conceitos de automação de build, testes, empacotamento e simulação de deploy.
