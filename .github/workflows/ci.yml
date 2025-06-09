@@ -97,7 +97,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Build with Maven
-        run: mvn clen install -DskipTests
+        run: mvn clean install -DskipTests
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 
