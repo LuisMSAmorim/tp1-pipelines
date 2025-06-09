@@ -58,7 +58,22 @@ jobs:
         run: mvn checkstyle:check
       - name: Run tests
         if: github.event_name != 'workflow_dispatch' || github.event.inputs.run_tests
-        run: mvn test
+        run: |
+          mvn test
+          mvn jacoco:report
+
+  generate_badges:
+    needs: lint_and_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Generate Badges
+        uses: gaelgirodon/ci-badges-action@v1
+        with:
+          gist-id: ${{ secrets.BADGES_GIST_ID }}
+          token: ${{ secrets.GIST_TOKEN }}
 
   package_application:
     runs-on: ubuntu-latest

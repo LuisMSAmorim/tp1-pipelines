@@ -1,6 +1,8 @@
 # DevCalc API
 
 [![Status do CI](https://github.com/luisMSAmorim/DevCalc/actions/workflows/ci.yml/badge.svg)](https://github.com/luisMSAmorim/DevCalc/actions/workflows/ci.yml)
+[![Testes](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/LuisMSAmorim/d3edb6895031a82d781839ee5fea9502/raw/devcalc-junit-tests.json)](https://github.com/luisMSAmorim/DevCalc/actions/workflows/ci.yml)
+[![Cobertura](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/LuisMSAmorim/d3edb6895031a82d781839ee5fea9502/raw/devcalc-jacoco-coverage.json)](https://github.com/luisMSAmorim/DevCalc/actions/workflows/ci.yml)
 
 ## Visão Geral
 
