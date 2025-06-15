@@ -27,3 +27,28 @@ jobs:
       
       - name: Use figlet
         run: figlet DevCalc
+
+  demonstrate_variables_and_secrets:
+    name: Demonstrate Variables and Secrets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use repository variables
+        env:
+          APP_MODE: ${{ vars.APP_MODE }}
+          SUPPORT_EMAIL: ${{ vars.SUPPORT_EMAIL }}
+        run: |
+          echo "Este workflow está rodando no modo: $APP_MODE"
+          echo "Para suporte, contate: $SUPPORT_EMAIL"
+
+      - name: Use a secret for a sensitive task
+        env:
+          PROD_TOKEN: ${{ secrets.PROD_TOKEN }}
+        run: |
+          echo "Simulando uma operação de autenticação..."
+          echo "Usando o token de produção..."
+          if [ -z "$PROD_TOKEN" ]; then
+            echo "Erro: O secret PROD_TOKEN não foi configurado."
+            exit 1
+          else
+            echo "Token recebido, autenticação simulada com sucesso."
+          fi
