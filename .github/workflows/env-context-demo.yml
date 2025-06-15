@@ -1,0 +1,44 @@
+name: Environment and Context Demo
+
+on:
+  workflow_dispatch:
+
+env:
+  WORKFLOW_VAR: "Estou no nível do workflow"
+  STAGE: "production"
+
+jobs:
+  demonstrate_context_and_env:
+    runs-on: ubuntu-latest
+    env:
+      JOB_VAR: "Estou no nível do job"
+
+    steps:
+      - name: Exibir informações de contexto e variáveis de ambiente
+        run: |
+          echo "Workflow acionado por: ${{ github.actor }}"
+          echo "Sistema Operacional do Runner: ${{ runner.os }}"
+          echo ""
+          echo "Variável do Workflow: $WORKFLOW_VAR"
+          echo "Variável do Job: $JOB_VAR"
+          echo "Variável Customizada (STAGE): $STAGE"
+          
+      - name: Sobrepor variáveis no nível do step
+        env:
+          WORKFLOW_VAR: "Valor sobreposto no nível do step"
+          STEP_VAR: "Estou no nível do step"
+          STAGE: "test"
+        run: |
+          echo ""
+          echo "Variável do Workflow (sobreposta): $WORKFLOW_VAR"
+          echo "Variável do Job: $JOB_VAR"
+          echo "Variável do Step: $STEP_VAR"
+          echo "Variável Customizada (STAGE - sobreposta): $STAGE"
+          
+      - name: Verificar escopo das variáveis
+        run: |
+          echo ""
+          echo "Variável do Workflow (valor original): $WORKFLOW_VAR"
+          echo "Variável do Job: $JOB_VAR"
+          echo "Variável do Step (não deve estar acessível): '$STEP_VAR'"
+          echo "Variável Customizada (STAGE - valor original): $STAGE" 
