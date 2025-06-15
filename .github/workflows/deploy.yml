@@ -1,0 +1,51 @@
+name: Deploy to Environments
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+jobs:
+  deploy-dev:
+    name: Deploy to Development
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    environment: 
+      name: dev
+      url: ${{ vars.API_URL }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: "Deploy to Dev Environment"
+        env:
+          API_URL: ${{ vars.API_URL }}
+        run: |
+          echo "Iniciando deploy para o ambiente de desenvolvimento..."
+          echo "URL da API de Dev: $API_URL"
+          echo "Deploy em Dev concluído."
+
+  deploy-prod:
+    name: Deploy to Production
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: 
+      name: prod
+      url: https://app.devcalc.com
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: "Deploy to Prod Environment"
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "Iniciando deploy para o ambiente de produção..."
+          if [ -z "$API_KEY" ]; then
+            echo "Erro: Segredo API_KEY não encontrado."
+            exit 1
+          fi
+          echo "Autenticando com a chave de produção..."
+          echo "Deploy em Produção concluído com sucesso." 
