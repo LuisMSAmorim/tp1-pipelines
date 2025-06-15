@@ -1,0 +1,29 @@
+name: Self-Hosted CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-on-local-machine:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show system info
+        run: uname -a
+
+      - name: Show Java version
+        run: java -version
+
+      - name: Install figlet
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y figlet
+      
+      - name: Use figlet
+        run: figlet DevCalc
