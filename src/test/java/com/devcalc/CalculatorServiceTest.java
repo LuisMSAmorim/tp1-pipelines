@@ -48,4 +48,19 @@ public class CalculatorServiceTest {
         });
         assertEquals("Cannot divide by zero", exception.getMessage(), "Exception message should match");
     }
+
+    @Test
+    void testSqrt() {
+        assertEquals(4.0, calculatorService.sqrt(16.0), "sqrt(16) should equal 4");
+        assertEquals(0.0, calculatorService.sqrt(0.0), "sqrt(0) should equal 0");
+        assertEquals(1.4142135623730951, calculatorService.sqrt(2.0), "sqrt(2) should be close to 1.414");
+    }
+
+    @Test
+    void testSqrtOfNegativeNumber() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            calculatorService.sqrt(-1.0);
+        });
+        assertEquals("Cannot take the square root of a negative number", exception.getMessage(), "Exception message should match");
+    }
 }

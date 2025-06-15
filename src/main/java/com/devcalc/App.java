@@ -79,5 +79,17 @@ public final class App {
                 ctx.status(BAD_REQUEST).json(e.getDetails());
             }
         });
+
+        app.get("/sqrt", ctx -> {
+            try {
+                double x = ctx.queryParamAsClass("x", Double.class)
+                        .getOrThrow(e -> new BadRequestResponse("Query parameter 'x' is missing or invalid"));
+                ctx.json(CALCULATOR_SERVICE.sqrt(x));
+            } catch (IllegalArgumentException e) {
+                ctx.status(BAD_REQUEST).json(java.util.Collections.singletonMap("error", e.getMessage()));
+            } catch (BadRequestResponse e) {
+                ctx.status(BAD_REQUEST).json(e.getDetails());
+            }
+        });
     }
 }
