@@ -31,6 +31,8 @@ jobs:
   demonstrate_variables_and_secrets:
     name: Demonstrate Variables and Secrets
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - name: Use repository variables
         env:
@@ -43,11 +45,13 @@ jobs:
       - name: Use a secret for a sensitive task
         env:
           PROD_TOKEN: ${{ secrets.PROD_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Simulando uma operação de autenticação..."
           echo "Usando o token de produção..."
           if [ -z "$PROD_TOKEN" ]; then
-            echo "Erro: O secret PROD_TOKEN não foi configurado."
+            echo "Erro: O secret PROD_TOKEN não foi configurado. Criando uma issue..."
+            gh issue create --title "Falha de Autenticação no Workflow" --body "O secret 'PROD_TOKEN' não foi encontrado. A operação sensível foi interrompida."
             exit 1
           else
             echo "Token recebido, autenticação simulada com sucesso."
